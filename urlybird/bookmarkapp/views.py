@@ -9,7 +9,6 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 
-
 class UserCreateView(FormView):
     """Used to register and log-in new users"""
     template_name = 'register.html'
@@ -22,3 +21,9 @@ class UserCreateView(FormView):
                             password=form.cleaned_data['password1'])
         login(self.request, user)
         return super(UserCreateView, self).form_valid(form)
+
+
+class BookmarkAdd(FormView):
+    """Used to create new bookmarks"""
+    template_name = 'addbookmark.html'
+    
