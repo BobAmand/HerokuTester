@@ -31,6 +31,7 @@ class Bookmark(models.Model):
     def __str__(self):
         return self.title
 
+
 class Click(models.Model):
 
     # ADD = 'A'
@@ -46,6 +47,3 @@ class Click(models.Model):
 
     timestamp = models.DateTimeField(auto_now_add=True)  # save every click
     bookmark = models.ForeignKey(Bookmark)
-
-
-class Clicker(models.Model):
