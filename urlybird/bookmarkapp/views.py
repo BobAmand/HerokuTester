@@ -9,34 +9,9 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 
-def registration(request):
-    if request.method == 'POST':
-        form = UserForm(request.POST)
-
-        if form.is_valid():
-            user = form.save()
-            password = user.password
-
-            user.set_password(password)
-            user.save()
-
-            profile = Profile(
-                user=user,
-                favorite_color='blue',
-            )
-            profile.save()
-
-            user = authenticate(username=user.username,
-                                password=password)
-            login(request, user)
-            return redirect('recent_statuses')
-    else:
-        form = UserForm()
-    return render(request, 'registration/register.html',
-                  {'form': form})
-
 
 class UserCreateView(FormView):
+    """Used to register and log-in new users"""
     template_name = 'register.html'
     form_class = UserCreationForm
     success_url = '/register'
