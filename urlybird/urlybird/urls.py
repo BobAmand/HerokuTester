@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from bookmarkapp import views
+from django.views.generic import TemplateView
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    # url(r'^register', views.registration)
+    url(r'^register/', views.UserCreateView.as_view(template_name='bookmarkapp/register.html'), name='register'),
+
+
 ]
