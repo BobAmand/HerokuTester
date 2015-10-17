@@ -1,7 +1,16 @@
 {% extends 'bookmarkapp/base.html' %}
+{% block title %}Bookmark Summary: {{ block.super }}{% endblock %}
 
 {% block content %}
-<form>
+<h1>Bookmark:</h>
+<form role="form" action="" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+<!-- need URL field -->
+
+  <button type="submit">Submit</button>
+
+
 
 </form>
 

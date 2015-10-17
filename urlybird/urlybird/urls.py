@@ -23,7 +23,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^register/', views.UserCreateView.as_view(
         template_name='bookmarkapp/register.html'), name='register'),
-#     url(r'^add/', views.BookmarkAdd.as_view(
-#         template_name='bookmarkapp/addbookmark.html'), name='addbookmark')
-    url(r'^add/', include()')
+    url(r'^add/', views.addbookmark, name='addbookmark')
     ]
