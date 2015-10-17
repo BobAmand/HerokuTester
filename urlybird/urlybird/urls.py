@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^register/', views.UserCreateView.as_view(
         template_name='bookmarkapp/register.html'), name='register'),
-
+    url(r'^user/(?P<user_id>\d+)$', views.UserDetailView.as_view(
+        template_name='bookmarkapp/user_detail.html'), name='user_detail'),
 
 ]
