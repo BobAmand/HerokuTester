@@ -1,3 +1,7 @@
 Django
 beautifulsoup4
 requests
+django-debug-toolbar
+django-extensions
+werkzeug
+django-bootstrap3

@@ -1,0 +1,9 @@
+{% extends "bookmarkapp/base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+  <h2>{{ user.username }}</h2>
+  {% for bookmark in user.bookmark_set.all %}
+    <p>{{ bookmark.title }}</p>
+  {% endfor %}
+  {{ page_obj }}
+{% endblock %}
