@@ -24,10 +24,10 @@ class UserCreateView(FormView):
 
 
 class BookmarkAdd(FormView):
-    """Used to create new bookmarks"""
+    """Used to create bookmarks"""
     """Want to add a bookmark to the list assoicated with the user"""
     """ - Bob: look at 'UserCreationForm' in Django tutorials"""
-    
+
     template_name = 'addbookmark.html'
 
     def form_add(self, form):
