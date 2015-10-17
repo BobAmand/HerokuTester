@@ -21,6 +21,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^register/', views.UserCreateView.as_view(
         template_name='bookmarkapp/register.html'), name='register'),
 
