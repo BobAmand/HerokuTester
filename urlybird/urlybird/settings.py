@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'debug_toolbar',
     'bootstrap3',
+    'bootstrap_pagination',
     'bookmarkapp'
     )
 

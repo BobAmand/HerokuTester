@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login  # , logout
 # from django.views.generic.edit import CreateView
 
 from django.contrib.auth.models import User
-from bookmarkapp.models import Bookmark
+from bookmarkapp.models import *
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -29,11 +29,19 @@ class UserCreateView(FormView):
         return super(UserCreateView, self).form_valid(form)
 
 
-class UserDetailView(DetailView):
+class UserDetailView(ListView):
     """Used to view a User and their list of bookmarks"""
-    model = User
+    #   model = User
     template_name = 'bookmarkapp/user_detail.html'
+    context_object_name = 'bookmarks'
     paginate_by = 10
+
+    def get_queryset(self):
+        preload = Bookmark.objects.all().select_related('author')
+        return preload.order_by('-modified')
+    # def get_queryset(self):
+    #
+    #     return User.objects.get(pk=pk).bookmark_set.all()
 
     # queryset = Bookmark.objects.get(author=self.user)
 

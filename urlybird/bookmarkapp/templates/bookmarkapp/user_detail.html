@@ -1,9 +1,10 @@
 {% extends "bookmarkapp/base.html" %}
 {% load bootstrap3 %}
+{% load bootstrap_pagination %}
 {% block content %}
   <h2>{{ user.username }}</h2>
-  {% for bookmark in user.bookmark_set.all %}
+  {% for bookmark in bookmarks %}
     <p>{{ bookmark.title }}</p>
   {% endfor %}
-  {{ page_obj }}
+  {% bootstrap_pagination page_obj %}
 {% endblock %}

@@ -32,6 +32,9 @@ class Bookmark(models.Model):
         return self.title
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User)
+
 class Click(models.Model):
 
     # ADD = 'A'

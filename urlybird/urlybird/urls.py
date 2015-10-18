@@ -16,7 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from bookmarkapp import views
-from django.views.generic import TemplateView
+# from django.views.generic import TemplateView
+
+# from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 urlpatterns = [
