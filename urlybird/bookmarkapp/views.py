@@ -100,6 +100,8 @@ def addbookmark(request):
 @login_required
 def editbookmark(request, uid):
     form_class = EditBookmarkForm
+    if Bookmark.objects.get(pk=uid).author != request.user:
+        return redirect('home_page')
 
     if request.method == 'POST':
         form = form_class(data=request.POST)
@@ -116,7 +118,7 @@ def editbookmark(request, uid):
                 pass
             row.save()
 
-            return redirect('editbookmark')
+            return redirect('user_detail', request.user.pk)
 
     return render(request, 'bookmarkapp/editbookmark.html', {
         'form': form_class,

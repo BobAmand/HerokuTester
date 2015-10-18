@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'^edit/(?P<uid>\d+)$', views.editbookmark, name='editbookmark'),
     url(r'^$', TemplateView.as_view(
         template_name="bookmarkapp/index.html"), name='home_page')
+
 ]
