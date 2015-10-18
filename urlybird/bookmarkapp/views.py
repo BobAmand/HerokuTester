@@ -9,9 +9,7 @@ from bookmarkapp.forms import BookmarkForm
 from bookmarkapp.models import Bookmark
 
 
-
 # Create your views here.
-
 
 class UserCreateView(FormView):
     """Used to register and log-in new users"""
