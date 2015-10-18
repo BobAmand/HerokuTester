@@ -4,8 +4,8 @@
 {% block content %}
   <h2>{{ user.username }}</h2>
   {% for bookmark in bookmarks %}
-    <p>{{ bookmark.title }}</p>
-    {% if bookmark.description % }
+    <a href='{% url 'short' bookmark.short_url %}'><p>{{ bookmark.title }}</p></a>
+    {% if bookmark.description %}
     <p>{{ bookmark.description }}</p>
     {% endif %}
   {% endfor %}
