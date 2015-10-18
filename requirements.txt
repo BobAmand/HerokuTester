@@ -1,4 +1,6 @@
 Django
+django-debug-toolbar
+hashids
 beautifulsoup4
 requests
 django-debug-toolbar

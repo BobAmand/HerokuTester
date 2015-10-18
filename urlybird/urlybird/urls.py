@@ -23,10 +23,13 @@ from bookmarkapp import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^register/', views.UserCreateView.as_view(
         template_name='bookmarkapp/register.html'), name='register'),
-    url(r'^user/(?P<pk>\d+)$', views.UserDetailView.as_view(),
+    url(r'^user/(?P<pk>\d+)$', views.UserDetailView.as_view()
         name='user_detail'),
-    url(r'^to/(?P<short_url>\w+)$', views.short_to_long, name='short')
-
+    url(r'^to/(?P<short_url>\w+)$', views.short_to_long, name='short'),
+    url(r'^add/', views.addbookmark, name='addbookmark'),
+    url(r'^$', TemplateView.as_view(
+        template_name="bookmarkapp/index.html"), name='home_page')
 ]
