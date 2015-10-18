@@ -28,6 +28,6 @@ urlpatterns = [
         template_name='bookmarkapp/register.html'), name='register'),
     url(r'^user/(?P<pk>\d+)$', views.UserDetailView.as_view(),
         name='user_detail'),
-    url(r'^to/(?P<short_url>\w+)$', views.short_to_long, name='short')
+    url(r'^to/(?P<short_url>[\w\d]+)$', views.short_to_long, name='short')
 
 ]

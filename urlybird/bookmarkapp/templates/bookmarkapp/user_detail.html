@@ -5,6 +5,9 @@
   <h2>{{ user.username }}</h2>
   {% for bookmark in bookmarks %}
     <p>{{ bookmark.title }}</p>
+    {% if bookmark.description % }
+    <p>{{ bookmark.description }}</p>
+    {% endif %}
   {% endfor %}
   {% bootstrap_pagination page_obj %}
 {% endblock %}

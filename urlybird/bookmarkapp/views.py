@@ -1,9 +1,9 @@
 from django.contrib.auth import authenticate, login  # , logout
-# from django.shortcuts import render
+from django.shortcuts import render, redirect
 # from django.views.generic.edit import CreateView
 
 from django.contrib.auth.models import User
-from bookmarkapp.models import *
+from bookmarkapp.models import Bookmark
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -50,4 +50,5 @@ class UserDetailView(ListView):
     #     return context
 
 def short_to_long(request, short_url):
-    pass
+    #TODO create Click object here
+    return redirect(Bookmark.objects.get(short_url=short_url).original_url)
