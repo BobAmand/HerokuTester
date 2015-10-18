@@ -1,14 +1,14 @@
 from django.contrib.auth import authenticate, login  # , logout
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 # from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 from bookmarkapp.models import Bookmark
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 # from django.views.generic import DetailView
-from bookmarkapp.forms import BookmarkForm
+from bookmarkapp.forms import BookmarkForm, EditBookmarkForm
 
 
 # Create your views here.
@@ -35,7 +35,8 @@ class UserDetailView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        preload = Bookmark.objects.all().select_related('author')
+        self.user = get_object_or_404(User, pk=self.kwargs['pk'])
+        preload = self.user.bookmark_set.all()
         return preload.order_by('-timestamp')
     # def get_queryset(self):
     #
@@ -47,6 +48,17 @@ class UserDetailView(ListView):
     #     context = super(UserDetailView, self).get_context_data(**kwargs)
     #     return context
 
+
+class AllBookmarkView(ListView):
+    """Used to view a User and their list of bookmarks"""
+    #   model = User
+    template_name = 'bookmarkapp/index.html'
+    context_object_name = 'bookmarks'
+    paginate_by = 20
+
+    def get_queryset(self):
+        preload = Bookmark.objects.all()
+        return preload.order_by('-timestamp')
 
 def short_to_long(request, short_url):
     # TODO create Click object here
@@ -93,5 +105,33 @@ def addbookmark(request):
             return redirect('addbookmark')
 
     return render(request, 'bookmarkapp/addbookmark.html', {
+        'form': form_class,
+    })
+
+
+@login_required
+def editbookmark(request, uid):
+    form_class = EditBookmarkForm
+    if Bookmark.objects.get(pk=uid).author != request.user:
+        return redirect('home_page')
+
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+
+        if form.is_valid():
+
+            try:
+                row = Bookmark.objects.get(pk=uid)
+                if request.POST['title']:
+                    row.title = request.POST['title']
+                if request.POST['description']:
+                    row.description = request.POST['description']
+            except:
+                pass
+            row.save()
+
+            return redirect('user_detail', request.user.pk)
+
+    return render(request, 'bookmarkapp/editbookmark.html', {
         'form': form_class,
     })
