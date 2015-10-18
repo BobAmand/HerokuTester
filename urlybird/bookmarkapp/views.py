@@ -8,8 +8,6 @@ from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
-
-
 class UserCreateView(FormView):
     """Used to register and log-in new users"""
     template_name = 'register.html'
