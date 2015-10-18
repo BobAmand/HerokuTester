@@ -3,7 +3,7 @@ django-debug-toolbar
 hashids
 beautifulsoup4
 requests
-django-debug-toolbar
 django-extensions
 werkzeug
 django-bootstrap3
+django-bootstrap-pagination
