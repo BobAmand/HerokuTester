@@ -1,8 +1,8 @@
 from django.contrib.auth import authenticate, login  # , logout
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 # from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 from bookmarkapp.models import Bookmark
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
@@ -35,7 +35,8 @@ class UserDetailView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        preload = Bookmark.objects.all().select_related('author')
+        self.user = get_object_or_404(User, pk=self.kwargs['pk'])
+        preload = self.user.bookmark_set.all()
         return preload.order_by('-timestamp')
     # def get_queryset(self):
     #
