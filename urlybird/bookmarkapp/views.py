@@ -48,6 +48,17 @@ class UserDetailView(ListView):
     #     return context
 
 
+class AllBookmarkView(ListView):
+    """Used to view a User and their list of bookmarks"""
+    #   model = User
+    template_name = 'bookmarkapp/index.html'
+    context_object_name = 'bookmarks'
+    paginate_by = 20
+
+    def get_queryset(self):
+        preload = Bookmark.objects.all()
+        return preload.order_by('-timestamp')
+
 def short_to_long(request, short_url):
     # TODO create Click object here
     return redirect(Bookmark.objects.get(short_url=short_url).original_url)

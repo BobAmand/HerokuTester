@@ -30,6 +30,5 @@ urlpatterns = [
         name='user_detail'),
     url(r'^to/(?P<short_url>\w+)$', views.short_to_long, name='short'),
     url(r'^add/', views.addbookmark, name='addbookmark'),
-    url(r'^$', TemplateView.as_view(
-        template_name="bookmarkapp/index.html"), name='home_page')
+    url(r'^$', views.AllBookmarkView.as_view(), name='home_page')
 ]
