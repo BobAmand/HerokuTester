@@ -78,7 +78,7 @@ def addbookmark(request):
             description = request.POST.get('description', '')
             original_url = request.POST.get('original_url', '')
             author = request.user
-#            short_url = Bookmark.objects.create_short_url('original_url')
+            # short_url = Bookmark.objects.create_short_url('original_url')
 
             bookmark = Bookmark(
                 title=title,

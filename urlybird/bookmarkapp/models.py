@@ -31,7 +31,7 @@ class Bookmark(models.Model):
 
     @classmethod
     def create_short_url(self, original_url):
-        hashids = Hashids(salt='this is my salt 5',min_length=7)
+        hashids = Hashids(salt='this is my salt 5', min_length=7)
         short_url = hashids.encode(int(Bookmark.objects.last().pk))  # refers to id of list of bmarks.
         return short_url
 

@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from bookmarkapp import views
-# from django.views.generic import TemplateView
+from django.views.generic import TemplateView
 
 # from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^register/', views.UserCreateView.as_view(
         template_name='bookmarkapp/register.html'), name='register'),
-    url(r'^user/(?P<pk>\d+)$', views.UserDetailView.as_view()
+    url(r'^user/(?P<pk>\d+)$', views.UserDetailView.as_view(),
         name='user_detail'),
     url(r'^to/(?P<short_url>\w+)$', views.short_to_long, name='short'),
     url(r'^add/', views.addbookmark, name='addbookmark'),
