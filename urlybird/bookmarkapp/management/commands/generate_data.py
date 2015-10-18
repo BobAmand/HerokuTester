@@ -23,8 +23,10 @@ def create_admin():
 
 
 def create_fake_users():
-    User.objects.create_user(username='MLS', password='password', email='')
-    User.objects.create_user(username='NHL', password='password', email='')
+    mls = User.objects.create_user(username='MLS', password='password', email='')
+    nhl = User.objects.create_user(username='NHL', password='password', email='')
+    mls.save()
+    nhl.save()
 
 
 def load_bookmarks():
