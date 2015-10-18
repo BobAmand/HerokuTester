@@ -38,7 +38,7 @@ class UserDetailView(ListView):
 
     def get_queryset(self):
         preload = Bookmark.objects.all().select_related('author')
-        return preload.order_by('-modified')
+        return preload.order_by('-timestamp')
     # def get_queryset(self):
     #
     #     return User.objects.get(pk=pk).bookmark_set.all()
