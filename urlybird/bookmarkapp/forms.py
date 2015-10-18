@@ -5,16 +5,17 @@ from .models import Bookmark
 
 class BookmarkForm(forms.Form):
     '''bkf = bookmark form'''
-    # title = forms.CharField(max_length=20, required=True)
+    title = forms.CharField(max_length=20, required=True)
     description = forms.CharField(max_length=255,
-                                    #   null=True,
-                                      widget=forms.Textarea
-                                      )
+                                  widget=forms.Textarea
+                                  )     # removed null=True
+    original_url = forms.URLField()  # max_length is 200 default.
+
     class Meta:
         model = Bookmark
         fields = ('title', 'description', 'original_url')
 
-    # original_url = forms.URLField()  # max_length is 200 default.
+
 
     # short_url = models.CharField(max_length=7)  # assuming 7 characters
     # timestamp = models.DateTimeField(auto_now_add=True)  # save every click
