@@ -48,3 +48,6 @@ class UserDetailView(ListView):
     # def get_context_data(self, **kwargs):
     #     context = super(UserDetailView, self).get_context_data(**kwargs)
     #     return context
+
+def short_to_long(request, short_url):
+    pass
