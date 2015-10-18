@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login, logout
 from bookmarkapp.forms import BookmarkForm
 from bookmarkapp.models import Bookmark
+
 
 
 # Create your views here.
@@ -36,7 +38,7 @@ class UserCreateView(FormView):
 #
 #     def form_add(self, form):
 #         new_bmk = form.save()
-
+@login_required
 def addbookmark(request):
     form_class = BookmarkForm
 
@@ -44,15 +46,20 @@ def addbookmark(request):
         form = form_class(data=request.POST)
 
         if form.is_valid():
-            title = request.POST.get('bkf_title', '')
-            description = request.POST.get('bkf_description', '')
-            original_url = request.POST.get('bkf_original_url', '')
+            title = request.POST.get('title', '')
+            description = request.POST.get('description', '')
+            original_url = request.POST.get('original_url', '')
+            author = request.user
+#            short_url = Bookmark.objects.create_short_url('original_url')
 
-            bookmark = Bookmark({
-                'title': title,
-                'description': description,
-                'original_url': original_url,
-            })
+            bookmark = Bookmark(
+                title = title,
+                description = description,
+                original_url = original_url,
+                author = author
+            )
+            bookmark.save()
+            bookmark.short_url = bookmark.create_short_url(original_url)
             bookmark.save()
 
             return redirect('addbookmark')

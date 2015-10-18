@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from hashids import Hashids
 
 # Create your models here.
 '''
@@ -24,9 +25,19 @@ class Bookmark(models.Model):
     title = models.CharField(max_length=20)
     description = models.CharField(max_length=255, null=True)
     original_url = models.URLField()  # max_length is 200 default.
-    short_url = models.CharField(max_length=7)  # assuming 7 characters
+    short_url = models.CharField(max_length=7, null=True)  # assuming 7 characters
     timestamp = models.DateTimeField(auto_now_add=True)  # save every click
     author = models.ForeignKey(User)
+
+    @classmethod
+    def create_short_url(self, original_url):
+        hashids = Hashids(salt='this is my salt 5',min_length=7)
+        short_url = hashids.encode(int(Bookmark.objects.last().pk))  # refers to id of list of bmarks.
+        return short_url
+
+        # use for decode: numbers = hashids.decode(id)
+        # short_url = the tranformation from Hashid.
+        # return short_url
 
     def __str__(self):
         return self.title
