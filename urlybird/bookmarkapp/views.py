@@ -1,12 +1,14 @@
+from django.contrib.auth import authenticate, login  # , logout
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
+# from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from bookmarkapp.models import Bookmark
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
-from django.contrib.auth import authenticate, login, logout
+from django.views.generic.list import ListView
+# from django.views.generic import DetailView
 from bookmarkapp.forms import BookmarkForm
-from bookmarkapp.models import Bookmark
 
 
 # Create your views here.
@@ -25,6 +27,32 @@ class UserCreateView(FormView):
         return super(UserCreateView, self).form_valid(form)
 
 
+class UserDetailView(ListView):
+    """Used to view a User and their list of bookmarks"""
+    #   model = User
+    template_name = 'bookmarkapp/user_detail.html'
+    context_object_name = 'bookmarks'
+    paginate_by = 10
+
+    def get_queryset(self):
+        preload = Bookmark.objects.all().select_related('author')
+        return preload.order_by('-timestamp')
+    # def get_queryset(self):
+    #
+    #     return User.objects.get(pk=pk).bookmark_set.all()
+
+    # queryset = Bookmark.objects.get(author=self.user)
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(UserDetailView, self).get_context_data(**kwargs)
+    #     return context
+
+
+def short_to_long(request, short_url):
+    # TODO create Click object here
+    return redirect(Bookmark.objects.get(short_url=short_url).original_url)
+
+
 # class BookmarkAdd(FormView):
 #     """Used to create bookmarks"""
 #     """Want to add a bookmark to the list assoicated with the user"""
@@ -36,6 +64,8 @@ class UserCreateView(FormView):
 #
 #     def form_add(self, form):
 #         new_bmk = form.save()
+
+
 @login_required
 def addbookmark(request):
     form_class = BookmarkForm
@@ -51,10 +81,10 @@ def addbookmark(request):
 #            short_url = Bookmark.objects.create_short_url('original_url')
 
             bookmark = Bookmark(
-                title = title,
-                description = description,
-                original_url = original_url,
-                author = author
+                title=title,
+                description=description,
+                original_url=original_url,
+                author=author
             )
             bookmark.save()
             bookmark.short_url = bookmark.create_short_url(original_url)

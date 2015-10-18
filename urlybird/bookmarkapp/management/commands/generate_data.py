@@ -37,6 +37,6 @@ def load_bookmarks():
             title=a[1][0],
             original_url=a[0][0],
             author=User.objects.get(username='admin'),
-            short_url=a[0][0][11:19]
+            short_url=a[0][0][11:19]  # TODO A better fake short_url generator
         )
         bookmark.save()
