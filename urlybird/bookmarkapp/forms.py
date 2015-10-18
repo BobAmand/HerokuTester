@@ -11,9 +11,17 @@ class BookmarkForm(forms.Form):
                                   )     # removed null=True
     original_url = forms.URLField()  # max_length is 200 default.
 
+    short_url = forms.CharField(max_length=7)  # assuming 7 characters
+    timestamp = forms.DateTimeField(input_formats='%Y-%m-%d %H:%M:%S')
+                                    # removed 'auto_now_add=True'
+    # author = forms.ForeignKey(User)
+
+
+
     class Meta:
         model = Bookmark
-        fields = ('title', 'description', 'original_url')
+        fields = ('title', 'description', 'original_url', 'short_url',
+                  'timestamp', 'author')
 
 
 
