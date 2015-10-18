@@ -23,7 +23,7 @@ Two models will be built.
 class Bookmark(models.Model):
 
     title = models.CharField(max_length=20)
-    description = models.CharField(max_length=255, null=True)
+    description = models.CharField(max_length=255, null=True, blank=True)
     original_url = models.URLField()  # max_length is 200 default.
     short_url = models.CharField(max_length=7, null=True)  # assuming 7 characters
     timestamp = models.DateTimeField(auto_now_add=True)  # save every click
@@ -31,7 +31,7 @@ class Bookmark(models.Model):
 
     @classmethod
     def create_short_url(self, original_url):
-        hashids = Hashids(salt='this is my salt 5',min_length=7)
+        hashids = Hashids(salt='this is my salt 5', min_length=7)
         short_url = hashids.encode(int(Bookmark.objects.last().pk))  # refers to id of list of bmarks.
         return short_url
 

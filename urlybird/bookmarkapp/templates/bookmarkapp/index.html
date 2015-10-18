@@ -1,5 +1,14 @@
 {% extends 'bookmarkapp/base.html' %}
+{% load bootstrap3 %}
 
 {% block content %}
 <h1>This is a Home Page</h1>
+{% for bookmark in bookmarks %}
+  <a href='{% url 'short' bookmark.short_url %}'><p>{{ bookmark.title }}</p></a>
+  {% if bookmark.description %}
+  <p>{{ bookmark.description }}</p>
+  {% endif %}
+{% endfor %}
+{% bootstrap_pagination page_obj %}
+
 {% endblock %}

@@ -1,8 +1,8 @@
 from django.contrib.auth import authenticate, login  # , logout
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 # from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 from bookmarkapp.models import Bookmark
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
@@ -35,7 +35,8 @@ class UserDetailView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        preload = Bookmark.objects.all().select_related('author')
+        self.user = get_object_or_404(User, pk=self.kwargs['pk'])
+        preload = self.user.bookmark_set.all()
         return preload.order_by('-timestamp')
     # def get_queryset(self):
     #
@@ -47,6 +48,17 @@ class UserDetailView(ListView):
     #     context = super(UserDetailView, self).get_context_data(**kwargs)
     #     return context
 
+
+class AllBookmarkView(ListView):
+    """Used to view a User and their list of bookmarks"""
+    #   model = User
+    template_name = 'bookmarkapp/index.html'
+    context_object_name = 'bookmarks'
+    paginate_by = 20
+
+    def get_queryset(self):
+        preload = Bookmark.objects.all()
+        return preload.order_by('-timestamp')
 
 def short_to_long(request, short_url):
     # TODO create Click object here
@@ -78,7 +90,7 @@ def addbookmark(request):
             description = request.POST.get('description', '')
             original_url = request.POST.get('original_url', '')
             author = request.user
-#            short_url = Bookmark.objects.create_short_url('original_url')
+            # short_url = Bookmark.objects.create_short_url('original_url')
 
             bookmark = Bookmark(
                 title=title,

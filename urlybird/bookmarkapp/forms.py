@@ -7,7 +7,8 @@ class BookmarkForm(forms.Form):
     '''bkf = bookmark form'''
     title = forms.CharField(max_length=20, required=True)
     description = forms.CharField(max_length=255,
-                                  widget=forms.Textarea
+                                  widget=forms.Textarea,
+                                  required=False
                                   )     # removed null=True
     original_url = forms.URLField()  # max_length is 200 default.
 
