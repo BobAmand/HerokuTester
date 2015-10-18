@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from bookmarkapp import views
-from django.views.generic import TemplateView
+# from django.views.generic import TemplateView
 
 # from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -30,5 +30,7 @@ urlpatterns = [
         name='user_detail'),
     url(r'^to/(?P<short_url>\w+)$', views.short_to_long, name='short'),
     url(r'^add/', views.addbookmark, name='addbookmark'),
-    url(r'^$', views.AllBookmarkView.as_view(), name='home_page')
+    url(r'^$', views.AllBookmarkView.as_view(), name='home_page'),
+    url(r'^edit/(?P<uid>\d+)$', views.editbookmark, name='editbookmark'),
+
 ]

@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 # from django.views.generic import DetailView
-from bookmarkapp.forms import BookmarkForm
+from bookmarkapp.forms import BookmarkForm, EditBookmarkForm
 
 
 # Create your views here.
@@ -105,5 +105,33 @@ def addbookmark(request):
             return redirect('addbookmark')
 
     return render(request, 'bookmarkapp/addbookmark.html', {
+        'form': form_class,
+    })
+
+
+@login_required
+def editbookmark(request, uid):
+    form_class = EditBookmarkForm
+    if Bookmark.objects.get(pk=uid).author != request.user:
+        return redirect('home_page')
+
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+
+        if form.is_valid():
+
+            try:
+                row = Bookmark.objects.get(pk=uid)
+                if request.POST['title']:
+                    row.title = request.POST['title']
+                if request.POST['description']:
+                    row.description = request.POST['description']
+            except:
+                pass
+            row.save()
+
+            return redirect('user_detail', request.user.pk)
+
+    return render(request, 'bookmarkapp/editbookmark.html', {
         'form': form_class,
     })
