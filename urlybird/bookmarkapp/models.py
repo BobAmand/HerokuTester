@@ -46,6 +46,7 @@ class Bookmark(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User)
 
+
 class Click(models.Model):
 
     # ADD = 'A'
@@ -61,3 +62,4 @@ class Click(models.Model):
 
     timestamp = models.DateTimeField(auto_now_add=True)  # save every click
     bookmark = models.ForeignKey(Bookmark)
+    clicker = models.ForeignKey(User, null=True)
