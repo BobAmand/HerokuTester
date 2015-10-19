@@ -10,7 +10,7 @@
       </a>
       {% if user.is_authenticated %}
         {% if user.username == view.user.username %}
-          HI USER
+          <a href='{% url 'editbookmark' bookmark.pk %}'><small>edit</small></a>
         {% endif %}
       {% endif %}
     </p>
