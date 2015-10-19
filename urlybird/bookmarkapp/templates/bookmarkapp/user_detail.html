@@ -11,6 +11,7 @@
       {% if user.is_authenticated %}
         {% if user.username == view.user.username %}
           <a href='{% url 'editbookmark' bookmark.pk %}'><small>edit</small></a>
+          <a href='{% url 'deletebookmark' bookmark.pk %}'><small>delete</small></a>
         {% endif %}
       {% endif %}
     </p>
