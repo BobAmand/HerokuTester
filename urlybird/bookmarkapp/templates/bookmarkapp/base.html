@@ -9,8 +9,8 @@
 
 <heading>
   <div style="float: right;">
-
     {% if user.is_authenticated %}
+      <a href="{% url 'addbookmark' %}">Add Bookmark</a> | 
       User: <a href="{% url 'user_detail' user.pk %}">{{ user.username }}</a> |
       <a href="{% url 'logout' %}?next={{request.path}}">Logout</a>
     {% else %}

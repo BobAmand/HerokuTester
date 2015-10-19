@@ -8,7 +8,7 @@
 {% block title %}Bookmark Summary: {{ block.super }}{% endblock %}
 
 {% block content %}
-<h1>Bookmark</h1>
+<h2>Add Bookmark</h2>
 <form role="form" action="" method="post">
   {% csrf_token %}
   {{ form.as_p }}
