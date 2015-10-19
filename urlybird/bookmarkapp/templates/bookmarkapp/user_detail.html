@@ -4,7 +4,16 @@
 {% block content %}
   <h2>{{ view.user.username }}</h2>
   {% for bookmark in bookmarks %}
-    <a href='{% url 'short' bookmark.short_url %}'><p>{{ bookmark.title }}</p></a>
+    <p>
+      <a href='{% url 'short' bookmark.short_url %}'>
+        {{ bookmark.title }}
+      </a>
+      {% if user.is_authenticated %}
+        {% if user.username == view.user.username %}
+          HI USER
+        {% endif %}
+      {% endif %}
+    </p>
     {% if bookmark.description %}
     <p>{{ bookmark.description }}</p>
     {% endif %}
