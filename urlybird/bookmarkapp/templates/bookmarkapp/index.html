@@ -1,5 +1,10 @@
 {% extends 'bookmarkapp/base.html' %}
 {% load bootstrap3 %}
+{% load bootstrap_themes %}
+{% load i18n admin_static %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_styles theme='slate' type='css'%}
 {% block content %}
 <h1>This is a Home Page</h1>
 {% for bookmark in bookmarks %}
