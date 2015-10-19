@@ -3,12 +3,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 # from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from bookmarkapp.models import Bookmark
+from bookmarkapp.models import Bookmark, Click
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 # from django.views.generic import DetailView
 from bookmarkapp.forms import BookmarkForm, EditBookmarkForm
+from datetime import datetime
 
 
 # Create your views here.
@@ -60,9 +61,15 @@ class AllBookmarkView(ListView):
         preload = Bookmark.objects.all()
         return preload.order_by('-timestamp')
 
+
 def short_to_long(request, short_url):
-    # TODO create Click object here
-    return redirect(Bookmark.objects.get(short_url=short_url).original_url)
+    bookmark = get_object_or_404(Bookmark, short_url=short_url)
+    try:
+        click = Click(bookmark=bookmark, clicker=request.user)
+    except:
+        click = Click(bookmark=bookmark)
+    click.save()
+    return redirect(bookmark.original_url)
 
 
 # class BookmarkAdd(FormView):
