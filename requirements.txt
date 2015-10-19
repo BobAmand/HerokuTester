@@ -7,3 +7,4 @@ django-extensions
 werkzeug
 django-bootstrap3
 django-bootstrap-pagination
+django-bootstrap-themes
