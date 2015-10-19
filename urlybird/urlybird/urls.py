@@ -32,5 +32,6 @@ urlpatterns = [
     url(r'^add/', views.addbookmark, name='addbookmark'),
     url(r'^$', views.AllBookmarkView.as_view(), name='home_page'),
     url(r'^edit/(?P<uid>\d+)$', views.editbookmark, name='editbookmark'),
+    url(r'^delete/(?P<uid>\d+)$', views.deletebookmark, name='deletebookmark')
 
 ]

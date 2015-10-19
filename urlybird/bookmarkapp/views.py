@@ -135,3 +135,15 @@ def editbookmark(request, uid):
     return render(request, 'bookmarkapp/editbookmark.html', {
         'form': form_class,
     })
+
+
+@login_required
+def deletebookmark(request, uid):
+    if Bookmark.objects.get(pk=uid).author != request.user:
+        return redirect('home_page')
+    else:
+        Bookmark.objects.get(pk=uid).delete()
+        return redirect('user_detail', request.user.pk)
+    # return render(request, 'bookmarkapp/deletebookmark.html', {
+    #     'form': form_class,
+    # })

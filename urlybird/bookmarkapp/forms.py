@@ -38,3 +38,17 @@ class EditBookmarkForm(forms.Form):
     class Meta:
         model = Bookmark
         fields = ('title', 'description')
+
+
+# class DelBookmarkForm(forms.Form):
+#
+#     title = forms.CharField(max_length=20, required=False)
+#     description = forms.CharField(max_length=255,
+#                                   widget=forms.Textarea,
+#                                   required=False
+#                                   )     # removed null=True
+#     original_url = forms.URLField()  # max_length is 200 default.
+#
+#     class Meta:
+#         model = Bookmark
+#         fields = ('title', 'description', 'original_url')
