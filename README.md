@@ -1,4 +1,5 @@
 ## Instructions
+Current version is to assess Heroku
 
 Download the contents of this repository to your chosen directory.
 
